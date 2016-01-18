@@ -23,30 +23,24 @@ In order to properly implement the Echo API, you will need to:
    in your Manifest file (under `apis-implemented/echo/url`), so that other
    developers may discover and test it.
 
- * When request is received and SSL negotiation is started, you MUST **request
-   and verify the client's certificate**. The request MUST come from within the
-   EWP Network.
-   
-   * Remember, that self-signed client certificates are **allowed** within the
-     EWP Network. If the client's certificate is self-signed, then its SHA-1
-     fingerprint MUST match one of the `fingerprint`s published by the
-     [Registry][registry-spec]. You MUST NOT use the common name (CA) for
-     matching in this case.
-     
-   * If the client's certificate is signed by a trusted CA, then - apart from
-     fingerprint matching - you MUST attempt to match its common name (CA)
-     against one of the `common-name`s published by the [Registry]
-     [registry-spec].
-     
-   * Consult XSD annotations for `client-certificates-in-use`, as described in
-     the [Discovery Manifest API specification][discovery-api].
-   
+ * You MUST ask the client for its certificate and verify if the request is
+   coming from within the EWP Network. At least one of the following conditions
+   must be met:
+
+   * The request is signed with a **trusted** client certificate, and the
+     certificate's common name (CA) matches at least one of the common names
+     published in the [Registry][registry-spec].
+
+   * The request is signed with **any** client certificate (might be
+     self-signed), and the certificate's SHA-1 fingerprint matches at least one
+     of the fingerprints published in the [Registry][registry-spec].
+
  * If the verification has **failed**, respond with a **HTTP 403** status. You
    MAY return some descriptive error message too, but currently it is not
    required.
 
  * If the verification has **succeeded**, respond with **HTTP 200** status, and
-   a return a plaintext `Echo` string (case sensitive). 
+   a return a plaintext `Echo` string (case sensitive).
 
 And that's pretty much it.
 
