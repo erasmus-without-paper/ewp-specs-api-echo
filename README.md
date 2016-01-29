@@ -8,10 +8,14 @@ Echo API
 Summary
 -------
 
-**EWP Echo API** allows beginner EWP developers to test the security of their
-EWP Network connections. It seems obvious, but it requires the developer to
-implement the core security framework (which will be needed by *all the other*
-APIs implemented later).
+**EWP Echo API** makes it simpler for EWP developers to design and test the
+core of their EWP implementations. It is RECOMMENDED for all developers to
+implement it (and keep it updated) **at least in their development EWP Hosts**,
+to avoid potential problems in the future.
+
+The requirements listed below might seem obvious, but they require the
+developer to implement the core security framework which will be needed
+throughout the development of **all the other** EWP features.
 
 
 Requirements
@@ -19,9 +23,10 @@ Requirements
 
 In order to properly implement the Echo API, you will need to:
 
- * Listen for requests at an URL of your choosing. You SHOULD publish this URL
-   in your Manifest file (under `apis-implemented/echo/url`), so that other
-   developers may discover and test it.
+
+### Step 1. Verify the SSL Certificate
+
+This step is designed to make sure that you **follow EWP security policies**.
 
  * You MUST ask the client for its certificate and verify if the request is
    coming from within the EWP Network. At least one of the following conditions
@@ -32,17 +37,72 @@ In order to properly implement the Echo API, you will need to:
      published in the [Registry][registry-spec].
 
    * The request is signed with **any** client certificate (might be
-     self-signed), and the certificate's SHA-1 fingerprint matches at least one
-     of the fingerprints published in the [Registry][registry-spec].
+     self-signed), and the certificate's SHA-1 fingerprint matches at least
+     one of the fingerprints published in the [Registry][registry-spec].
 
  * If the verification has **failed**, respond with a **HTTP 403** status. You
    MAY return some descriptive error message too, but currently it is not
    required.
 
- * If the verification has **succeeded**, respond with **HTTP 200** status, and
-   a return a plaintext `Echo` string (case sensitive).
+ * If the verification has **succeeded**, proceed to the next step.
 
-And that's pretty much it.
+
+### Step 2. Verify request method and content type
+
+ * You SHOULD allow both GET and POST request methods. If other request
+   types are received (e.g. PUT), respond with **HTTP 405** error status.
+
+ * If POST is received, then you MUST be able to decode at least the
+   `application/x-www-form-urlencoded` content type. It is not required to
+   support any other encodings (such as `multipart/form-data`), and you SHOULD
+   respond with a **HTTP 415** error status upon receiving such unsupported
+   encodings.
+
+ * Please note, that in other EWP APIs it will usually be recommended to
+   support only a single HTTP method - either GET or POST. We require you to
+   support both of them in the Echo API though, just for the purpose of
+   exercise.
+
+
+### Step 3. Retrieve the `echo` variable
+
+This step is designed to make sure you **access XML elements using their
+proper qualified names (QNames)**.
+
+ * Take the GET or POST parameter named `vars`, and parse its contents as XML.
+   You MAY expect the contents to match the XML Schema attached in the
+   [request-vars.xsd](request-vars.xsd) file. It is NOT REQUIRED to validate
+   the contents against the schema.
+
+ * Extract the `echo` parameter (as described in the schema). You will need it
+   in the next step.
+
+ * Please note, that in other EWP APIs it will usually not be required to
+   parse XML files in requests. Variables (such as the `echo` variable) will
+   normally be delivered to you via the GET parameter directly. We make it
+   more complicated here just for the purpose of exercise.
+
+
+### Step 4. Identify the EWP Host and respond
+
+This step is designed to make sure you can **identify the requesting EWP Host**
+and that you **encode your XML output properly**.
+
+ * Respond with a **HTTP 200** status, and a document described by the
+   [response.xsd](response.xsd) schema.
+
+ * The response MUST contain the list of requester's HEI IDs (which can be
+   retrieved from the Registry's response), and the `echo` variable retrieved
+   in the previous step. See the schema file for details.
+
+
+Deployment
+----------
+
+The last requirement is to publish the URL of your Echo API implementation in
+your Manifest file (as described in the `apis-implemented/echo/url` element),
+so that other developers (and, possibly, continuous integration scripts) may
+discover and test it.
 
 
 [registry-spec]: https://github.com/erasmus-without-paper/ewp-specs-api-registry/blob/master/README.md
