@@ -32,13 +32,13 @@ This step is designed to make sure that you **follow EWP security policies**.
    coming from within the EWP Network. At least one of the following conditions
    must be met:
 
-   * The request is signed with a **trusted** client certificate, and the
-     certificate's common name (CA) matches at least one of the common names
-     published in the [Registry][registry-spec].
+   * The client is using a **trusted** client certificate (signed by a CA), and
+     the certificate's common name (CN) matches *at least one* of the common
+     names published in the [Registry][registry-spec].
 
-   * The request is signed with **any** client certificate (might be
-     self-signed), and the certificate's SHA-1 fingerprint matches at least
-     one of the fingerprints published in the [Registry][registry-spec].
+   * The client is using **any** certificate (might be self-signed), and the
+     certificate's SHA-1 fingerprint matches at least one of the fingerprints
+     published in the [Registry][registry-spec].
 
  * If the verification has **failed**, respond with a **HTTP 403** status. You
    MAY return some descriptive error message too, but currently it is not
