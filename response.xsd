@@ -5,8 +5,8 @@
     xmlns:vars="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd"
     elementFormDefault="qualified"
 
-    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/response.xsd"
-    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/response.xsd"
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/master"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/tree/master"
 >
     <!-- WRTODO: Replace all occurrences of 'master' (in all projects) with 'stable-v1' upon release. -->
 
