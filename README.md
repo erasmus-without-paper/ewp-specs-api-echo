@@ -100,9 +100,12 @@ Deployment
 ----------
 
 The last requirement is to publish the URL of your Echo API implementation in
-your Manifest file (as described in the `apis-implemented/echo/url` element),
-so that other developers (and, possibly, continuous integration scripts) may
-discover and test it.
+your Manifest file, so that other developers (and, possibly, continuous
+integration scripts) may discover and test it.
+
+The format of the manifest file entry is described in the [manifest-entry.xsd]
+(manifest-entry.xsd) file. You will need to use a proper `xmlns` when you are
+including it in your manifest file.
 
 
 [registry-spec]: https://github.com/erasmus-without-paper/ewp-specs-api-registry/blob/master/README.md
