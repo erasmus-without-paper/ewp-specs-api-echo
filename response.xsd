@@ -36,7 +36,7 @@
                     <xs:annotation>
                         <xs:documentation>
                             The list of IDs of all HEIs covered by the requester's EWP Host (taken from
-                            the registry's `institutions-covered/hei[id]` attributes).
+                            the registry's `institutions-covered/hei-id` elements).
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
