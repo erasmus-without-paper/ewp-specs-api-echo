@@ -4,8 +4,8 @@
     xmlns:xml="http://www.w3.org/XML/1998/namespace"
     elementFormDefault="qualified"
 
-    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd"
-    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/master/request-vars.xsd"
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/request-vars.xsd"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-echo/blob/stable-v1/request-vars.xsd"
 >
     <xs:annotation>
         <xs:documentation>
