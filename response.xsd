@@ -35,7 +35,7 @@
                 <xs:element name="hei-id" minOccurs="0" maxOccurs="unbounded" type="xs:string">
                     <xs:annotation>
                         <xs:documentation>
-                            The list of IDs of all HEIs covered by the requester's EWP Host (taken from
+                            The list of IDs of all HEIs covered by the requester's EWP Host(s) (taken from
                             the registry's `institutions-covered/hei-id` elements).
                         </xs:documentation>
                     </xs:annotation>

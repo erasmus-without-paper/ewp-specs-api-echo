@@ -54,10 +54,6 @@ This step is designed to make sure that you **follow EWP security policies**.
    respond with a **HTTP 415** error status upon receiving such unsupported
    encodings.
 
- * Note, that in some other EWP APIs it will often be recommended to support
-   only the POST HTTP method. However most read-only APIs will be accessibly
-   via both GET and POST (because GET has a limited query length).
-
 
 ### Step 3. Retrieve the `echo` variable
 
@@ -76,13 +72,14 @@ proper namespace URIs**.
    parse XML files in requests. Variables (such as the `echo` variable) will
    be delivered to you via the regular GET parameter. We make it more a bit
    more complicated here just for the purpose of exercise (we found that some
-   developers don't have much experience with XML namespaces). 
+   developers don't have enough experience with XML namespaces, so they may
+   find it useful). 
 
 
 ### Step 4. Identify the EWP Host and respond
 
-This step is designed to make sure you can **identify the requesting EWP Host**
-and that you **encode your XML output properly**.
+This step is designed to make sure you can **identify the requesting HEIs** and
+that you **encode your XML output properly**.
 
  * Respond with a **HTTP 200** status, and a document described by the
    [response.xsd](response.xsd) schema.
@@ -99,13 +96,13 @@ The last requirement is to publish the URL of your Echo API implementation in
 your Manifest file, so that other developers (and, possibly, continuous
 integration scripts) may discover and test it.
 
-The format of the manifest file entry is described in the [manifest-entry.xsd]
-(manifest-entry.xsd) file. You will need to use a proper `xmlns` when you are
-including it in your manifest file.
+The format of the Echo API manifest entry is described in the
+[manifest-entry.xsd](manifest-entry.xsd) file. You will need to use a proper
+`xmlns` when you are including it in your manifest file.
 
 
-[registry-spec]: https://github.com/erasmus-without-paper/ewp-specs-api-registry/blob/master/README.md
-[discovery-api]: https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/stable-v1/README.md
+[registry-spec]: https://github.com/erasmus-without-paper/ewp-specs-api-registry
+[discovery-api]: https://github.com/erasmus-without-paper/ewp-specs-api-discovery
 [develhub]: http://developers.erasmuswithoutpaper.eu/
-[statuses]: https://github.com/erasmus-without-paper/ewp-specs-management/blob/stable-v1/README.md#statuses
+[statuses]: https://github.com/erasmus-without-paper/ewp-specs-management#statuses
 [error-handling]: https://github.com/erasmus-without-paper/ewp-specs-architecture#error-handling
