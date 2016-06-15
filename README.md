@@ -55,38 +55,42 @@ This step is designed to make sure that you **follow EWP security policies**.
    encodings.
 
 
-### Step 3. Retrieve the `echo` variable
+### Step 3. Retrieve the `echo` parameter (optional, repeatable)
 
-This step is designed to make sure you **access XML elements using their
-proper namespace URIs**.
+ * Retrieve `echo` values (plural) from request. The `echo` parameter is
+   *repeatable*. It means that it can appear **more than once** (e.g.
+   `url?echo=...&echo=...`). Such repeatable parameters will be used throughout
+   other EWP APIs, so you should be able to retrieve them properly.
 
- * Take the GET or POST parameter named `vars`, and parse its contents as XML.
-   You MAY expect the contents to match the XML Schema for `vars` element
-   attached in the [request-vars.xsd](request-vars.xsd) file. It is NOT
-   REQUIRED to validate the contents against the schema.
+ * *Optional* means, that the list of `echo` values is allowed to be of
+   zero-length. It is valid to call the echo URL with no `echo` parameters.
 
- * Extract the `echo` parameter (as described in the schema). You will need it
-   in the next step.
-
- * Please note, that in other EWP APIs it will usually not be required to
-   parse XML files in requests. Variables (such as the `echo` variable) will
-   be delivered to you via the regular GET parameter. We make it more a bit
-   more complicated here just for the purpose of exercise (we found that some
-   developers don't have enough experience with XML namespaces, so they may
-   find it useful). 
+ * You will include the list of all retrieved `echo` values in your response
+   below.
 
 
-### Step 4. Identify the EWP Host and respond
+### Step 4. Identify the requesting HEIs
 
-This step is designed to make sure you can **identify the requesting HEIs** and
-that you **encode your XML output properly**.
+This step is designed to make sure you can **identify the requesting HEIs**.
+Note, that there can be any number of them (`0..*`, see discussion [here]
+(https://github.com/erasmus-without-paper/ewp-specs-api-echo/issues/3)).
+
+ * In the first step above, you have already identified the *list* (!) of EWP
+   Hosts using the client certificate retrieved from the currently handled
+   request. Now, you need to build on that information, and retrieve the list
+   of HEIs the requester is covering. Consult [Registry API specification]
+   [registry-spec] for useful hints (i.e. examples of XPath expressions).
+
+ * You will include the list of HEI IDs in your response below.
+
+
+### Step 5. Construct the response
 
  * Respond with a **HTTP 200** status, and a document described by the
    [response.xsd](response.xsd) schema.
 
- * Among other things, the response MUST contain the list of requester's HEI
-   IDs (which can be retrieved from the Registry's response), and the `echo`
-   variable retrieved in the previous step. See the schema file for details.
+ * The document MUST contain the values retrieved in the previous steps. See
+   the schema file for details.
 
 
 Deployment
