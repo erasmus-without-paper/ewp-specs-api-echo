@@ -13,7 +13,7 @@ core of their EWP implementations. It is RECOMMENDED for all developers to
 implement it (and keep it updated) **at least in their development EWP Hosts**,
 to avoid potential problems in the future.
 
-The requirements listed below might seem obvious, but they require the
+The requirements listed below might seem trivial, but they require the
 developer to implement the core security framework which will be needed
 throughout the development of **all the other** EWP features.
 
@@ -69,19 +69,19 @@ This step is designed to make sure that you **follow EWP security policies**.
    below.
 
 
-### Step 4. Identify the requesting HEIs
+### Step 4. Identify the covered HEIs
 
-This step is designed to make sure you can **identify the requesting HEIs**.
-Note, that there can be any number of them (`0..*`, see discussion [here]
-(https://github.com/erasmus-without-paper/ewp-specs-api-echo/issues/3)).
+This step is designed to make sure you can **identify the HEIs covered by the
+requester**. Note, that there can be any number of them (`0..*`, see discussion
+[here](https://github.com/erasmus-without-paper/ewp-specs-api-echo/issues/3)).
 
- * In the first step above, you have already identified the *list* (!) of EWP
-   Hosts using the client certificate retrieved from the currently handled
-   request. Now, you need to build on that information, and retrieve the list
-   of HEIs the requester is covering. Consult [Registry API specification]
-   [registry-spec] for useful hints (i.e. examples of XPath expressions).
+ * In the first step above, you have already found the *list* (!) of
+   `<host>` elements bound to the client certificate used in this request. Now,
+   you will need to build on that information, and retrieve *the list of HEIs
+   these hosts cover*. Consult [Registry API specification][registry-spec] for
+   useful hints (i.e. examples of XPath expressions).
 
- * You will include the list of HEI IDs in your response below.
+ * You will include this list of HEI IDs in your response below.
 
 
 ### Step 5. Construct the response
