@@ -29,7 +29,7 @@ In order to properly implement the Echo API, you will need to:
 This step is designed to make sure that you **follow EWP security policies**.
 
  * You MUST ask the client for its certificate and verify if the request is
-   coming from within the EWP Network. The certificate's SHA-1 fingerprint MUST
+   coming from within the EWP Network. The certificate's SHA-256 fingerprint MUST
    match at least one of the fingerprints published in the [Registry Service]
    [registry-spec]. Note, that [clients certificates MAY be self-signed]
    (https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/3)
