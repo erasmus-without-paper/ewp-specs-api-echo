@@ -105,6 +105,85 @@ The format of the Echo API manifest entry is described in the
 `xmlns` when you are including it in your manifest file.
 
 
+Debugging
+---------
+
+These sample steps will show you how a self-signed client certificate can be
+installed in your browser for easy debugging.
+
+1. **Generate a key-pair and a corresponding certificate.** The key-pair will
+   initially be encrypted with the password you provide:
+
+   ```bash
+   openssl req -x509 -newkey rsa:2048 -keyout browser.key.pem -out browser.crt.pem -days 36500
+   ```
+
+2. **Decrypt your key-pair file**. This step in not strictly required, but it
+   makes your work easier (you won't need to supply a password every time
+   you'll want to use the key).
+
+   ```bash
+   openssl rsa -in browser.key.pem -out browser.key.pem
+   ```
+
+3. **Paste your new public certificate into your manifest file.** Use the
+   base64-encoded part from `browser.crt.pem` file. It should look like [this]
+   (https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L66).
+
+   Note, that it doesn't have to be the same manifest file you publish your
+   Echo API with. It needs to be registered in the EWP Registry though. The
+   point of publishing it, is to inform the EWP Network (including **your own**
+   Echo API) that you will be using it.
+
+4. **Convert to PFX format.** This step might be unnecessary, if your system
+   and/or browser allows you to import certificates in other formats. Note,
+   that you don't need to supply the export password (you can leave it empty).
+
+   ```bash
+   openssl pkcs12 -inkey browser.key.pem -in browser.crt.pem -export -out browser.pfx
+   ```
+
+5. **Import the PFX certificate into your browser.** For example, in Chrome it
+   looks like this:
+
+   * Go to settings and type "cert" in search box. You should see "Manage
+     certificates..." button.
+
+   * In *Personal* tab, click "Import...".
+
+     ![Certificates dialog](images/screenshot1.png)
+
+   * Continue to import the certificate from your `browser.pfx` file.
+
+   * Once you're done, make sure that the certificate is marked to be used for
+     Client Authentication.
+
+     ![Advanced Options dialog](images/screenshot2.png)
+
+6. **Test it.** If you have installed your certificate successfully **AND** if
+   your Echo API properly requests the client to provide a certificate, then
+   you should see the following when you visit your Echo API URL in your
+   browser:
+
+   ![Browser asks which certificate to use](images/screenshot3.png)
+
+   Your browser should ask you which client certificate you want to use for
+   this session. Note, that this decision is cached by the browser for a
+   duration of the session. So, if you want to test your Echo API with multiple
+   client certificates, then you will probably want to do this in an *Incognito
+   Window*.
+
+   If your Echo API works correctly **AND** the information about your client
+   certificate has already propagated through the network (see step 3), then
+   you should see a valid Echo API response. Note, that `<hei-id>` values
+   depend on the values of [`<institutions-covered>`]
+   (https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L58)
+   in your manifest file.
+
+   ![An example Echo API response](images/screenshot4.png)
+
+
+
 [registry-spec]: https://github.com/erasmus-without-paper/ewp-specs-api-registry
 [discovery-api]: https://github.com/erasmus-without-paper/ewp-specs-api-discovery
 [develhub]: http://developers.erasmuswithoutpaper.eu/
