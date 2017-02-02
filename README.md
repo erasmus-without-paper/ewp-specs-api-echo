@@ -24,35 +24,51 @@ Requirements
 In order to properly implement the Echo API, you will need to:
 
 
-### Step 1. Verify the SSL Certificate
+### Step 1. Verify the Client Certificate
 
 This step is designed to make sure that you **follow EWP security policies**.
 
- * You MUST ask the client for its certificate and verify if the request is
-   coming from within the EWP Network. The certificate's SHA-256 fingerprint MUST
-   match at least one of the fingerprints published in the [Registry Service]
-   [registry-spec]. Note, that [clients certificates MAY be self-signed]
-   (https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/3)
-   (you MUST allow such certificates).
+ * You MUST ask the client for its certificate (send a "client certificate
+   request" message during the TLS handshake). If the client doesn't supply it,
+   respond with a **HTTP 403** status.
 
- * If the verification has **failed**, respond with a **HTTP 403** status. You
-   SHOULD return some descriptive error message too (wrapped in XML), as
-   described in the [general error handling rules][error-handling].
+   Note, that some *other* EWP APIs allow non-authenticated client requests
+   (e.g. the Discovery Manifest API). Don't assume that *every* EWP-related URL
+   will require the client to provide a certificate just because Echo API does.
+
+ * You MUST verify if the request is coming from within the EWP Network.
+
+   The certificate's SHA-256 fingerprint MUST match at least one of the
+   fingerprints published in the [Registry Service][registry-spec]. As it has
+   been explained in the Registry API specification - changes in the catalogue
+   SHOULD be picked up by your application *minutes* after they happen.
+
+ * Remember that [clients certificates can be self-signed]
+   (https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/3),
+   you MUST allow such certificates.
+
+ * If the verification has **failed**, respond with a **HTTP 403** status.
 
  * If the verification has **succeeded**, proceed to the next step.
+
+ * For each HTTP error response described in this step, and in all the next
+   steps, is also RECOMMENDED to follow the [general error handling rules]
+   [error-handling]. In particular, this means that you SHOULD return some
+   descriptive error message too, wrapped in XML, as part of your error
+   response body.
 
 
 ### Step 2. Verify request method and content type
 
- * You SHOULD allow both GET and POST request methods. If other request
-   types are received (e.g. PUT), respond with **HTTP 405** error status, as
-   described in the [general error handling rules][error-handling]
+ * You MUST allow both GET and POST request methods. If other request
+   types are received (e.g. PUT), you SHOULD respond with **HTTP 405** error
+   status, as described in the [general error handling rules][error-handling].
 
  * If POST is received, then you MUST be able to decode at least the
-   `application/x-www-form-urlencoded` content type. It is not required to
-   support any other encodings (such as `multipart/form-data`), and you MAY
-   respond with a **HTTP 415** error status upon receiving such unsupported
-   encodings.
+   `application/x-www-form-urlencoded` content type. You MAY support other
+   encodings (such as `multipart/form-data`), but you are not required to. You
+   SHOULD respond with a **HTTP 415** error status if you receive a POST in an
+   encoding which you don't support.
 
 
 ### Step 3. Retrieve the `echo` parameter (optional, repeatable)
@@ -108,7 +124,7 @@ The format of the Echo API manifest entry is described in the
 Debugging
 ---------
 
-These sample steps will show you how a self-signed client certificate can be
+These command samples will show you how a self-signed client certificate can be
 installed in your browser for easy debugging.
 
 1. **Generate a key-pair and a corresponding certificate.** The key-pair will
@@ -174,8 +190,8 @@ installed in your browser for easy debugging.
    Window*.
 
    If your Echo API works correctly **AND** the information about your client
-   certificate has already propagated through the network (see step 3), then
-   you should see a valid Echo API response. Note, that `<hei-id>` values
+   certificate has already propagated through the network (see point 3 above),
+   then you should see a valid Echo API response. Note, that `<hei-id>` values
    depend on the values of [`<institutions-covered>`]
    (https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L58)
    in your manifest file.

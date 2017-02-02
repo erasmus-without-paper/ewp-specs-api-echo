@@ -5,6 +5,17 @@ This document describes all the changes made to the *Echo API* document,
 starting from its first released version.
 
 
+1.0.3
+-----
+
+* "You SHOULD allow both GET and POST request methods" was changed to "you
+  MUST".
+
+* Added more details in regard of how client certificates are to be verified.
+  In particular, explained that *not* supplying any certificate must result
+  in an error.
+
+
 1.0.2
 -----
 
