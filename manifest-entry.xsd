@@ -36,7 +36,7 @@
             <xs:complexContent>
                 <xs:extension base="ewp:ManifestApiEntryBase">
                     <xs:sequence>
-                        <xs:element name="url" type="ewp:HTTPS">
+                        <xs:element name="url" type="ewp:HTTPS" minOccurs="1" maxOccurs="1">
                             <xs:annotation>
                                 <xs:documentation>
                                     An URL at which the Echo API is being served.
