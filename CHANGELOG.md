@@ -5,6 +5,13 @@ This document describes all the changes made to the *Echo API* document,
 starting from its first released version.
 
 
+1.0.4
+-----
+
+* `minOccurs` and `maxOccurs` are now provided explicitly ([why?]
+  (https://github.com/erasmus-without-paper/general-issues/issues/22)).
+
+
 1.0.3
 -----
 
