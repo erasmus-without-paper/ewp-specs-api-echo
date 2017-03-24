@@ -43,8 +43,8 @@ This step is designed to make sure that you **follow EWP security policies**.
    been explained in the Registry API specification - changes in the catalogue
    SHOULD be picked up by your application *minutes* after they happen.
 
- * Remember that [clients certificates can be self-signed]
-   (https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/3),
+ * Remember that [clients certificates can be
+   self-signed](https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/3),
    you MUST allow such certificates.
 
  * If the verification has **failed**, respond with a **HTTP 403** status.
@@ -52,10 +52,10 @@ This step is designed to make sure that you **follow EWP security policies**.
  * If the verification has **succeeded**, proceed to the next step.
 
  * For each HTTP error response described in this step, and in all the next
-   steps, is also RECOMMENDED to follow the [general error handling rules]
-   [error-handling]. In particular, this means that you SHOULD return some
-   descriptive error message too, wrapped in XML, as part of your error
-   response body.
+   steps, is also RECOMMENDED to follow the
+   [general error handling rules][error-handling]. In particular, this means
+   that you SHOULD return some descriptive error message too, wrapped in XML,
+   as part of your error response body.
 
 
 ### Step 2. Verify request method and content type
@@ -143,8 +143,8 @@ installed in your browser for easy debugging.
    ```
 
 3. **Paste your new public certificate into your manifest file.** Use the
-   base64-encoded part from `browser.crt.pem` file. It should look like [this]
-   (https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L66).
+   base64-encoded part from `browser.crt.pem` file. It should look like
+   [this](https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L66).
 
    Note, that it doesn't have to be the same manifest file you publish your
    Echo API with. It needs to be registered in the EWP Registry though. The
@@ -192,8 +192,8 @@ installed in your browser for easy debugging.
    If your Echo API works correctly **AND** the information about your client
    certificate has already propagated through the network (see point 3 above),
    then you should see a valid Echo API response. Note, that `<hei-id>` values
-   depend on the values of [`<institutions-covered>`]
-   (https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L58)
+   depend on the values of
+   [`<institutions-covered>`](https://github.com/erasmus-without-paper/ewp-specs-api-discovery/blob/v4.0.1/manifest-example.xml#L58)
    in your manifest file.
 
    ![An example Echo API response](images/screenshot4.png)
