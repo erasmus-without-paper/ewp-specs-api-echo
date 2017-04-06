@@ -5,6 +5,19 @@ This document describes all the changes made to the *Echo API* document,
 starting from its first released version.
 
 
+1.1.0
+-----
+
+* Majority of the document has been moved to a separate document [describing
+  TLS Client Certificate
+  Authentication](https://github.com/erasmus-without-paper/ewp-specs-sec-cliauth-tlscert)
+  ([details](https://github.com/erasmus-without-paper/ewp-specs-architecture/issues/21)).
+
+* The document has been re-formatted, so that it resembles all the other API
+  specifications. The "step by step" instructions were removed (because most
+  of them are now part of the TLS Client Authentication document).
+
+
 1.0.4
 -----
 
