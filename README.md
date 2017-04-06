@@ -21,25 +21,37 @@ important parts are documented in XSD files!).
 Authentication and Encryption
 -----------------------------
 
-This version (v1.x.x) of Echo API follows the rules described in [EWP
-Authentication and Security, Version 1][sec-v1] document. It requires
-implementers to support a very specific set of security solutions:
+This version of this API uses [standard EWP Authentication and Security,
+Version 2][sec-v2]. Server implementers choose which security methods they
+support by declaring them in their Manifest API entry.
 
- * For client authentication, [TLS Client Certificate
-   Authentication][cliauth-tlscert] method MUST be used, and self-signed
-   client certificates MUST be accepted by the server.
+Since Echo API is implemented primarily for testing everyone's security
+framework, servers are RECOMMENDED to support *all* currently specified
+[standard authentication and encryption methods][standard-sec-methods], with
+some minor exceptions:
 
- * For server authentication, [TLS Server Certificate
-   Authentication][srvauth-tlscert] method MUST be used.
+ * It is FORBIDDEN to support [Anonymous Clients][cliauth-none] in Echo API.
 
- * Regular TLS MUST be used for both [request][reqencr-tls] and
-   [response][resencr-tls] encryption.
+ * If you (the server implementer) are certain that you *won't* be supporting
+   some particular security method in *any* of your *other* APIs, then it's
+   okay to "skip" supporting this method in Echo API too. (This is especially
+   true in case of [TLS Client Certificate Authentication][cliauth-tlscert],
+   which - based on the input from EWP developers - turned out to be difficult
+   to implement in some architectures).
 
- * Other methods MAY be supported, but it is NOT REQUIRED to support them (and
-   the server doesn't declare support for them in his manifest file).
+ * When new security methods are introduced in the future, it's usually okay to
+   "lag behind" a little. That is, you usually won't be required to support
+   new security methods immediately after they are introduced. However, in
+   time, **some older security methods MAY get deprecated, or even banned** -
+   which might result in you getting cut off from the rest of the EWP Network
+   (first, you may get banned by some more restrictive partners, and later on,
+   by the Registry Service administrators). So you should keep an eye on that!
 
-Please note, that soon there will be a new (v2.x.x) version of this API, which
-will have different authentication and encryption requirements.
+It is also RECOMMENDED that you support all these security methods at a *single
+endpoint/URL* (as opposed to having separate API-entries in your manifest, per
+each possible combination of security methods). At the time we are writing
+this, all standard methods are designed in a way that enables them to be used
+interchangeably on single URL (and we hope it will stay this way).
 
 
 Request method
@@ -104,8 +116,8 @@ The format of the Echo API manifest entry is described in the
 [manifest-entry.xsd](manifest-entry.xsd) file. You will need to use a proper
 `xmlns` when you are including it in your manifest file.
 
-*Hint:* The deployment step looks exactly the same for all APIs, so in most
-cases it is not described, again and again, in all API specifications.
+Note, that this deployment step looks exactly the same for all APIs, so in most
+cases API designers skip it in their API specifications.
 
 
 [registry-spec]: https://github.com/erasmus-without-paper/ewp-specs-api-registry
@@ -125,3 +137,4 @@ cases it is not described, again and again, in all API specifications.
 [reqencr-tls]: https://github.com/erasmus-without-paper/ewp-specs-sec-reqencr-tls
 [resencr-tls]: https://github.com/erasmus-without-paper/ewp-specs-sec-resencr-tls
 [sec-v1]: https://github.com/erasmus-without-paper/ewp-specs-sec-intro/tree/stable-v1
+[sec-v2]: https://github.com/erasmus-without-paper/ewp-specs-sec-intro/tree/stable-v2
