@@ -21,11 +21,13 @@ important parts are documented in XSD files!).
 Authentication and Encryption
 -----------------------------
 
-This version (v1.x.x) of Echo API requires implementers to use a very specific
-set of security methods:
+This version (v1.x.x) of Echo API follows the rules described in [EWP
+Authentication and Security, Version 1][sec-v1] document. It requires
+implementers to support a very specific set of security solutions:
 
  * For client authentication, [TLS Client Certificate
-   Authentication][cliauth-tlscert] method MUST be used.
+   Authentication][cliauth-tlscert] method MUST be used, and self-signed
+   client certificates MUST be accepted by the server.
 
  * For server authentication, [TLS Server Certificate
    Authentication][srvauth-tlscert] method MUST be used.
@@ -33,7 +35,8 @@ set of security methods:
  * Regular TLS MUST be used for both [request][reqencr-tls] and
    [response][resencr-tls] encryption.
 
- * Other methods MAY be supported, but it is NOT REQUIRED to support them.
+ * Other methods MAY be supported, but it is NOT REQUIRED to support them (and
+   the server doesn't declare support for them in his manifest file).
 
 Please note, that soon there will be a new (v2.x.x) version of this API, which
 will have different authentication and encryption requirements.
@@ -121,3 +124,4 @@ cases it is not described, again and again, in all API specifications.
 [srvauth-httpsig]: https://github.com/erasmus-without-paper/ewp-specs-sec-srvauth-httpsig
 [reqencr-tls]: https://github.com/erasmus-without-paper/ewp-specs-sec-reqencr-tls
 [resencr-tls]: https://github.com/erasmus-without-paper/ewp-specs-sec-resencr-tls
+[sec-v1]: https://github.com/erasmus-without-paper/ewp-specs-sec-intro/tree/stable-v1
