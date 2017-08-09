@@ -8,6 +8,9 @@ Echo API
 Summary
 -------
 
+**This version (v1.x.x) of Echo API is now DEPRECATED. Please upgrade to
+version 2.x.x.**
+
 **EWP Echo API** might seem trivial in itself, but it requires EWP developers
 to design and test the authentication and security framework which they will
 use throughout the development of **all the other** EWP features. It is
