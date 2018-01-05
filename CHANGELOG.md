@@ -5,6 +5,12 @@ This document describes all the changes made to the *Echo API* document,
 starting from its first released version.
 
 
+2.0.1
+-----
+
+* Fix an outdated link reference.
+
+
 2.0.0
 -----
 
